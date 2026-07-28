@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Integrated Food Delivery & Dine-Out Platform — MySQL Edition
 
 This is the MySQL version of Project 2. Same feature set as the MongoDB build —
@@ -169,3 +170,6 @@ ORDER BY distanceMeters ASC, avg_rating DESC
 ```
 This is the MySQL equivalent of MongoDB's `$geoNear` stage — same idea
 (distance-sorted proximity search), different engine.
+=======
+# Food-Delivery
+>>>>>>> d20e09612b01023bf0c4da7b90b4eda9e03fdb60
