@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Integrated Food Delivery & Dine-Out Platform
 
 ## 1. Prerequisites
