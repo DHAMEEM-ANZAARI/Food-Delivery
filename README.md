@@ -1,17 +1,5 @@
 <<<<<<< HEAD
-# Integrated Food Delivery & Dine-Out Platform — MySQL Edition
-
-This is the MySQL version of Project 2. Same feature set as the MongoDB build —
-geospatial restaurant discovery, cart/checkout, real-time order tracking via
-Socket.io, and a gamified review engine — but backed by MySQL + Sequelize
-instead of MongoDB + Mongoose.
-
-Key swaps from the Mongo version:
-- MongoDB → **MySQL 8** (via `mysql2` + `sequelize`)
-- `$geoNear` aggregation → MySQL native `POINT` column + `ST_Distance_Sphere()`
-- Mongoose schemas → Sequelize models (`src/models/`)
-
----
+# Integrated Food Delivery & Dine-Out Platform
 
 ## 1. Prerequisites
 
@@ -24,18 +12,11 @@ Key swaps from the Mongo version:
 
 ## 2. Set up the database
 
-Option A — let Sequelize create everything (easiest):
-1. Just create an empty database:
+let Sequelize create everything (easiest):
+ Just create an empty database:
    ```sql
    CREATE DATABASE food_delivery CHARACTER SET utf8mb4;
    ```
-2. The backend will auto-create/sync all tables (including the spatial index)
-   on first run — see step 3.
-
-Option B — run the schema manually:
-```bash
-mysql -u root -p < backend/sql/schema.sql
-```
 
 ---
 
@@ -102,26 +83,7 @@ Visit **http://localhost:5173**.
 
 ---
 
-## 5. Try it out
-
-1. Log in as `customer@test.com` (or register a new customer account).
-2. Browse nearby restaurants (the app requests your browser location; if you
-   deny it, it defaults to Salem, Tamil Nadu — the seeded restaurants are
-   located there, so leave the radius at 10km or more to see them).
-3. Add items to your cart and checkout. The cart blocks mixing items from two
-   different restaurants, matching the original spec.
-4. Open a **second browser tab/window**, log in as `owner@spicehub.test`, and
-   go to **Dashboard**. You'll see the order arrive live via WebSockets.
-5. As the merchant, click "Mark as ..." repeatedly to advance the order
-   through `ACCEPTED → PREPARING → COURIER_ASSIGNED → IN_TRANSIT → DELIVERED`.
-   Watch the customer's tracking page update in real time in the other tab.
-6. Once `DELIVERED`, the customer can leave a review. The gamified review
-   engine scores it (word count + descriptive keyword density) and awards
-   loyalty points automatically.
-
----
-
-## 6. Project structure
+## 5. Project structure
 
 ```
 backend/
@@ -143,7 +105,7 @@ frontend/
                               Cart, MyOrders, OrderTracking, MerchantDashboard
 ```
 
-## 7. API quick reference
+## 6. API quick reference
 
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
@@ -158,7 +120,7 @@ frontend/
 | GET  | `/api/orders/mine` | any | Customer's order history |
 | POST | `/api/reviews` | customer | Submit review (scored + loyalty points awarded) |
 
-## 8. Notes on the MySQL geospatial approach
+## 7. Notes on the MySQL geospatial approach
 
 `restaurants.location` is a native `POINT` column with a `SPATIAL INDEX`.
 Nearby search runs:
@@ -168,8 +130,3 @@ FROM restaurants
 WHERE ST_Distance_Sphere(location, POINT(:lng, :lat)) <= :radiusMeters
 ORDER BY distanceMeters ASC, avg_rating DESC
 ```
-This is the MySQL equivalent of MongoDB's `$geoNear` stage — same idea
-(distance-sorted proximity search), different engine.
-=======
-# Food-Delivery
->>>>>>> d20e09612b01023bf0c4da7b90b4eda9e03fdb60
